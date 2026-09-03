@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd" version="2.2">
+    <!--
+     Unidade de persistência principal da aplicação.
+     O modo RESOURCE_LOCAL indica que o controle de transações (begin/commit/rollback)
+     é feito manualmente via código Java (EntityTransaction).
+    -->
+    <persistence-unit name="JPA" transaction-type="RESOURCE_LOCAL">
+
+        <!--
+        Registro explícito da entidade Person no contexto do JPA.
+        Garante o mapeamento correto e previne falhas de detecção do provider.
+        -->
+        <class>domain.Person</class>
+
+        <properties>
+            <!-- Endereço do banco PostgreSQL local e porta padrão do SGBD -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/JPA" />
+            <!-- Driver JDBC responsável por intermediar a comunicação com o PostgreSQL -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <!-- Credenciais de acesso ao servidor PostgreSQL local -->
+            <property name="jakarta.persistence.jdbc.user" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="1234" />
+            <!--
+            Geração do schema (DDL): 'update' ajusta ou cria a tabela 'Person'
+            automaticamente com base no código Java, mantendo os dados salvos intactos.
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+        </properties>
+    </persistence-unit>
+</persistence>
